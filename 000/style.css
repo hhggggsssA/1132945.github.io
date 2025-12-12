@@ -1,0 +1,155 @@
+/* style.css - 花俏視覺設計 */
+
+/* === 1. 全域樣式 (Background & Font) === */
+
+body {
+    /* 華麗的漸變背景 */
+    background: linear-gradient(135deg, #f0e6ff 0%, #ffe6f0 100%); 
+    
+    font-family: "Microsoft JhengHei", sans-serif; /* 使用微軟正黑體或備選字體 [cite: 50] */
+    text-align: center; /* 文字置中 [cite: 51] */
+    color: #4a4a4a;
+    min-height: 100vh; /* 確保背景佔滿整個視窗 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+}
+
+h1 {
+    color: #8A2BE2; /* 藍紫色標題 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* 立體陰影 */
+    margin-bottom: 10px;
+}
+
+#status {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #FF69B4; /* 亮粉色狀態文字 */
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* === 2. 棋盤容器樣式 (.board) === */
+
+.board {
+    width: 330px; /* 略微加大以容納 5px 的間隙 */
+    height: 330px;
+    margin: 20px auto; /* 置中 [cite: 63] */
+    display: grid; /* 使用 Grid 佈局 [cite: 64] */
+    grid-template-columns: repeat(3, 1fr); /* 3x3 網格 [cite: 65] */
+    grid-template-rows: repeat(3, 1fr); /* 3x3 網格 [cite: 66] */
+    gap: 10px; /* 間隙加寬以增加視覺分離感 [cite: 67] */
+    
+    /* 棋盤的立體容器效果 */
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 
+                0 0 0 10px rgba(255, 255, 255, 0.5); /* 多重陰影營造漂浮效果 */
+}
+
+/* === 3. 格子樣式 (.cell) === */
+
+.cell {
+    background-color: #ffffff; /* 白色背景 [cite: 73] */
+    border: none; /* 移除預設邊框 */
+    border-radius: 15px; /* 圓角格子 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* 輕微立體陰影 */
+    
+    font-size: 3.5em; /* 放大符號 [cite: 75] */
+    font-weight: 900;
+    
+    display: flex; /* Flex 佈局用於置中 [cite: 76] */
+    align-items: center; /* 垂直置中 [cite: 77] */
+    justify-content: center; /* 水平置中 [cite: 78] */
+    
+    cursor: pointer; /* 滑鼠指標變化 [cite: 79] */
+    transition: all 0.3s ease-in-out; /* 所有過渡效果更平滑 [cite: 80] */
+}
+
+/* 滑鼠懸停效果 (Hover) */
+.cell:hover {
+    background-color: #FFD7E0; /* 懸停時變為淡粉色 [cite: 84] */
+    transform: scale(1.05); /* 輕微放大，增加互動感 */
+    box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4); /* 粉色發光陰影 */
+}
+
+/* === 4. X 與 O 符號的美化 === */
+
+/* X 符號 (玩家) - 使用活潑的顏色 */
+.cell:not(:empty) {
+    /* 讓填寫內容後，hover 效果停止 */
+    cursor: default;
+}
+.cell:not(:empty):hover {
+    background-color: #ffffff; /* 恢復白色，避免變色 */
+    transform: none; /* 取消放大 */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* X 符號的樣式 */
+.cell:not(:empty)::after {
+    content: attr(data-content); /* 實際內容會在 JS 中設定 */
+    color: #4169E1; /* 皇家藍 */
+    text-shadow: 1px 1px 3px rgba(65, 105, 225, 0.5); /* 藍色光暈 */
+    /* 初始動畫效果：從微小狀態出現 */
+    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.cell:not(:empty):contains("X") {
+    color: #4169E1; /* 皇家藍 */
+}
+
+/* O 符號的樣式 */
+.cell:not(:empty):contains("O") {
+    color: #FF6347; /* 番茄紅 */
+    text-shadow: 1px 1px 3px rgba(255, 99, 71, 0.5); /* 紅色光暈 */
+}
+
+
+/* === 5. 控制區樣式 (.controls) === */
+
+.controls {
+    margin-top: 30px; /* 增加間距 [cite: 88] */
+}
+
+button {
+    background-color: #8A2BE2; /* 藍紫色按鈕 */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4); /* 按鈕陰影 */
+}
+
+button:hover {
+    background-color: #9932CC; /* 懸停時顏色變深 */
+    transform: translateY(-2px); /* 輕微上浮 */
+    box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+}
+
+button:active {
+    transform: translateY(0); /* 按下時恢復 */
+    box-shadow: 0 2px 10px rgba(138, 43, 226, 0.4);
+}
+
+/* === 6. 動畫關鍵幀 (Keyframes) === */
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+        opacity: 1;
+    }
+}
