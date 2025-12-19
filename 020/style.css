@@ -1,0 +1,84 @@
+:root {
+    --wood: #5d4037;
+    --felt: #264d2e;
+    --gold: #d4af37;
+}
+
+body {
+    background: #222;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding-top: 50px;
+}
+
+.board-container {
+    background: var(--wood);
+    padding: 10px;
+    border: 6px solid #3e2723;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+    gap: 2px;
+    background: #111;
+}
+
+.cell {
+    background: var(--felt);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    perspective: 1000px; /* 增加 3D 深度感 */
+}
+
+/* 棋子主體 */
+.piece {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 狀態切換：利用 rotateY 翻面 */
+.piece.black { transform: rotateY(0deg); }
+.piece.white { transform: rotateY(180deg); }
+
+.front, .back {
+    position: absolute;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    backface-visibility: hidden; /* 翻到背面時隱藏另一面 */
+    box-shadow: inset -2px -2px 6px rgba(0,0,0,0.5);
+}
+
+.front { background: #111; } /* 黑面 */
+.back { background: #eee; transform: rotateY(180deg); } /* 白面 */
+
+.valid-move::after {
+    content: '';
+    width: 10px; height: 10px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+}
+
+/* UI 其他樣式 */
+.main-content { display: flex; gap: 30px; }
+.stats-panel { display: flex; flex-direction: column; gap: 15px; }
+.player-card { background: #333; padding: 10px; border-radius: 5px; display: flex; align-items: center; gap: 10px; }
+.player-card.active { outline: 2px solid var(--gold); }
+.p-token { width: 15px; height: 15px; border-radius: 50%; }
+.p-token.black { background: #000; }
+.p-token.white { background: #fff; }
+.btn-reset { padding: 10px; cursor: pointer; background: #822; color: white; border: none; }
+.status-msg { margin-top: 20px; text-align: center; font-size: 1.2em; color: var(--gold); }
