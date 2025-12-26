@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1132945-FinalTerm</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600&family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-container">
+    <div class="sidebar">
+        <div class="app-title">
+            <h1>圍棋對弈系統</h1>
+            <span class="version">Final Term v2.0</span>
+        </div>
+
+        <div class="status-card">
+            <div class="current-turn">
+                <span id="turn-icon" class="stone-icon black"></span>
+                <span id="game-status">黑方思考中...</span>
+            </div>
+            <div class="info-row">本局手數: <span id="move-count">0</span></div>
+            <div class="info-row komi-info">貼目規則: 白棋 +7.5 目</div>
+        </div>
+
+        <div class="score-board">
+            <div class="player">
+                <span class="label">黑方 (玩家)</span>
+                <span class="captures">提子: <span id="capture-black">0</span></span>
+            </div>
+            <div class="player">
+                <span class="label">白方 (電腦)</span>
+                <span class="captures">提子: <span id="capture-white">0</span></span>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <button id="btn-pass" class="btn warning">虛手 (Pass)</button>
+            <button id="btn-undo" class="btn secondary">悔棋 (Undo)</button>
+            <button id="btn-restart" class="btn danger">重新開始</button>
+            
+            <div class="toggle-container">
+                <span>AI 對手</span>
+                <label class="switch">
+                    <input type="checkbox" id="toggle-ai" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="logs" id="game-logs">
+            <div class="log-item">系統就緒，等待開始...</div>
+        </div>
+    </div>
+
+    <div class="main-view">
+        <div class="board-wrapper">
+            <div id="board" class="go-board">
+                </div>
+        </div>
+    </div>
+</div>
+
+<div id="game-over-modal" class="modal hidden">
+    <div class="modal-content">
+        <h2 id="winner-title">🏆 黑方獲勝！</h2>
+        <div class="result-details">
+            <div class="result-row">
+                <span class="label">⚫ 黑方總分</span>
+                <span class="value" id="final-score-b">0</span>
+            </div>
+            <div class="result-sub">地 <span id="terr-b">0</span> + 提子 <span id="cap-b">0</span></div>
+            
+            <hr>
+            
+            <div class="result-row">
+                <span class="label">⚪ 白方總分</span>
+                <span class="value" id="final-score-w">0</span>
+            </div>
+            <div class="result-sub">地 <span id="terr-w">0</span> + 提子 <span id="cap-w">0</span> + 貼目 7.5</div>
+        </div>
+        <button id="btn-modal-restart" class="btn warning big-btn">再來一局</button>
+    </div>
+</div>
+
+<audio id="sound-place" src="https://assets.mixkit.co/sfx/preview/mixkit-hard-typewriter-click-1119.mp3"></audio>
+<audio id="sound-capture" src="https://assets.mixkit.co/sfx/preview/mixkit-game-ball-tap-2073.mp3"></audio>
+<audio id="sound-win" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
